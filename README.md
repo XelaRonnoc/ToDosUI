@@ -71,7 +71,13 @@ To Do:
 
 ## Change logs
 
-### 05/06/2023 - adding testing
+### 14/06/2023 - Further project Setup and begining of Form creation
+
+-   Added form context to store categories
+-   Added form to add categories to context
+-   Added some styling to form
+
+### 05/06/2023 - Project Setup
 
 -   Project created initial setup complete
 
