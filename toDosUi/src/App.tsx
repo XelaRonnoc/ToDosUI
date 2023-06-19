@@ -1,11 +1,14 @@
 import "./App.css";
 import CategoryProvider from "./context/CategoryProvider";
 import HomePage from "./containers/HomePage/HomePage";
+import TaskProvider from "./context/TaskProvider";
 
 function App() {
     return (
         <CategoryProvider>
-            <HomePage />
+            <TaskProvider>
+                <HomePage />
+            </TaskProvider>
         </CategoryProvider>
     );
 }

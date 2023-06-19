@@ -12,6 +12,7 @@ const CategoryForm = () => {
         e.preventDefault();
         if (categoryInput.current) {
             addCategory(categoryInput.current.value);
+            categoryInput.current.value = "";
         }
         console.log(categories);
     };
