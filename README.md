@@ -71,6 +71,12 @@ To Do:
 
 ## Change logs
 
+### 19/06/2023 - Added Task Item functionalities
+
+-   Added ToDo Items
+-   Added a Tasks Provider
+-   Added ToDo Form
+
 ### 14/06/2023 - Further project Setup and begining of Form creation
 
 -   Added form context to store categories
