@@ -11,7 +11,7 @@ export const CategoryContext = createContext<CategoryContextProps>({
 });
 
 const CategoryProvider: React.FC<any> = ({ children }: any) => {
-    const [categories, setCategories] = useState<string[]>([]);
+    const [categories, setCategories] = useState<string[]>(["None"]);
 
     const addCategory = useCallback(
         (newCategory: string) => setCategories([...categories, newCategory]),

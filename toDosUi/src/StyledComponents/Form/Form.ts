@@ -8,3 +8,7 @@ export const StyledForm = styled.form<{ $primary?: boolean }>`
 
     ${(props) => props.$primary && css``}
 `;
+
+export const ErrorP = styled.p`
+    color: red;
+`;

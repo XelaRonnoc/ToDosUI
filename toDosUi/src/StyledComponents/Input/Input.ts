@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const StyledInput = styled.input(() => [
+interface InputProps {
+    error: boolean;
+}
+
+export const StyledInput = styled.input(({ error }: InputProps) => [
     `
     border: 2px solid grey;
     border-radius: 5px;
@@ -9,4 +13,5 @@ export const StyledInput = styled.input(() => [
     width: 600px;
     cursor: text;
 `,
+    error && `border: 2px solid red;`,
 ]);

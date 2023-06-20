@@ -71,6 +71,11 @@ To Do:
 
 ## Change logs
 
+### 20/06/2023 - Swithched from use Ref to react-hook-form and yup
+
+-   Began changing over forms to use react-hook form,
+-   added requirement for an updateTask function in the taskContext
+
 ### 19/06/2023 - Added Task Item functionalities
 
 -   Added ToDo Items
