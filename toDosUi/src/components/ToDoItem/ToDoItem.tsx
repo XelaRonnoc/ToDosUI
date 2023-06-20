@@ -3,10 +3,10 @@ import { StyledForm } from "../../StyledComponents/Form/Form";
 import { StyledSelect } from "../../StyledComponents/StyledSelect/StyledSelect";
 import { CategoryContext } from "../../context/CategoryProvider";
 import { Button } from "../../StyledComponents/Button/Button";
-import { TaskContext, PartialTask } from "../../context/TaskProvider";
+import { TaskContext } from "../../context/TaskProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { FullInput } from "../FullInputs/FullInputs";
 
 const taskSchema = Yup.object().shape({
@@ -14,12 +14,11 @@ const taskSchema = Yup.object().shape({
     taskCategory: Yup.string().required(),
 });
 
-const ToDoItem = ({ task }: any) => {
+const ToDoItem = ({ task, updateList }: any) => {
     const { categories } = useContext(CategoryContext);
-    const { addTask, tasks } = useContext(TaskContext);
+    const { tasks, updateTask, removeTask } = useContext(TaskContext);
     const {
         register,
-        handleSubmit,
         reset,
         formState: { errors },
     } = useForm({
@@ -29,9 +28,31 @@ const ToDoItem = ({ task }: any) => {
         reValidateMode: "onChange",
     });
 
-    const onSubmit: SubmitHandler<any> = (data: PartialTask) => {
-        //updateTask(data);
+    const handleChange = (e: any) => {
+        const curTask = task;
+        e.preventDefault;
+        if (e.target) {
+            if (e.target.name === "taskName") {
+                console.log(e.target.name, e.target.value);
+                curTask[e.target.name] = e.target.value;
+            } else {
+                console.log(e.target.name, e.target.value);
+                curTask[e.target.name] = e.target.value;
+            }
+        }
+        updateTask(curTask);
         console.log(tasks);
+    };
+
+    const handleDuplicate = (e: any) => {
+        e.preventDefault();
+        console.log("duplicating");
+    };
+
+    const handleDelete = (e: any) => {
+        e.preventDefault();
+        removeTask(task.taskId);
+        updateList();
     };
 
     useEffect(() => {
@@ -39,25 +60,44 @@ const ToDoItem = ({ task }: any) => {
     }, []);
 
     return (
-        <StyledForm onChange={handleSubmit(onSubmit)}>
+        <StyledForm>
             <FullInput
                 type="text"
                 placeholder="Type Task Here"
                 error={errors.taskName}
-                {...register("taskName")}
+                {...register("taskName", {
+                    onChange: (e) => {
+                        handleChange(e);
+                    },
+                })}
             />
             <StyledSelect
-                value={task.taskCategory}
-                // error={errors.taskCategory}
-                {...register("taskCategory")}
+                {...register("taskCategory", {
+                    onChange: (e) => {
+                        handleChange(e);
+                    },
+                })}
             >
-                {categories.map((category) => {
-                    return <option>{category}</option>;
+                {categories.map((category, index) => {
+                    return <option key={index}>{category}</option>;
                 })}
             </StyledSelect>
 
-            <Button $primary type="submit">
+            <Button
+                $primary
+                onClick={(e) => {
+                    handleDuplicate(e);
+                }}
+            >
                 Duplicate
+            </Button>
+            <Button
+                $primary
+                onClick={(e) => {
+                    handleDelete(e);
+                }}
+            >
+                Delete
             </Button>
         </StyledForm>
     );

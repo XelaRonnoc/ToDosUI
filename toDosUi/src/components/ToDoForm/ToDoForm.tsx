@@ -34,8 +34,8 @@ const ToDoForm = () => {
                 required
             />
             <StyledSelect ref={taskSelect}>
-                {categories.map((category) => {
-                    return <option>{category}</option>;
+                {categories.map((category, index) => {
+                    return <option key={index}>{category}</option>;
                 })}
             </StyledSelect>
 

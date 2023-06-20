@@ -71,6 +71,11 @@ To Do:
 
 ## Change logs
 
+### 21/06/2023 - Implemented update and delete functionality for tasks
+
+-   Added a update "end point" in taskContext
+-   implemented the delete functionality from task context into the ToDoItem component
+
 ### 20/06/2023 - Swithched from use Ref to react-hook-form and yup
 
 -   Began changing over forms to use react-hook form,

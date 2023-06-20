@@ -1,5 +1,7 @@
 import { createContext, useCallback, useState } from "react";
 
+// add id to categories
+
 interface CategoryContextProps {
     addCategory: (newCategory: string) => void;
     categories: string[];
