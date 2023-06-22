@@ -71,6 +71,11 @@ To Do:
 
 ## Change logs
 
+### 22/06/2023 - Implemented react-hook-form for all forms and improved categopry context
+
+-   made categorys and object with id
+-   made form construction and design consistent
+
 ### 21/06/2023 - Implemented update and delete functionality for tasks
 
 -   Added a update "end point" in taskContext
