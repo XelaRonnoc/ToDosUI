@@ -2,9 +2,18 @@ import { createContext, useCallback, useState } from "react";
 
 // add id to categories
 
+export interface partialCategory {
+    name: string | undefined;
+}
+
+export interface Category {
+    id: Number;
+    name: string;
+}
+
 interface CategoryContextProps {
-    addCategory: (newCategory: string) => void;
-    categories: string[];
+    addCategory: (newCategory: partialCategory) => void;
+    categories: Category[];
 }
 
 export const CategoryContext = createContext<CategoryContextProps>({
@@ -13,10 +22,20 @@ export const CategoryContext = createContext<CategoryContextProps>({
 });
 
 const CategoryProvider: React.FC<any> = ({ children }: any) => {
-    const [categories, setCategories] = useState<string[]>(["None"]);
+    const [categories, setCategories] = useState<Category[]>([
+        { id: 0, name: "None" },
+    ]);
 
     const addCategory = useCallback(
-        (newCategory: string) => setCategories([...categories, newCategory]),
+        (newCategory: partialCategory) => {
+            if (newCategory.name) {
+                const fullCategory = {
+                    name: newCategory.name,
+                    id: categories.length,
+                };
+                setCategories([...categories, fullCategory]);
+            }
+        },
         [categories]
     );
 

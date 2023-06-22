@@ -3,7 +3,7 @@ import { StyledForm } from "../../StyledComponents/Form/Form";
 import { StyledSelect } from "../../StyledComponents/StyledSelect/StyledSelect";
 import { CategoryContext } from "../../context/CategoryProvider";
 import { Button } from "../../StyledComponents/Button/Button";
-import { TaskContext } from "../../context/TaskProvider";
+import { PartialTask, TaskContext } from "../../context/TaskProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ const taskSchema = Yup.object().shape({
 
 const ToDoItem = ({ task, updateList }: any) => {
     const { categories } = useContext(CategoryContext);
-    const { tasks, updateTask, removeTask } = useContext(TaskContext);
+    const { tasks, updateTask, removeTask, addTask } = useContext(TaskContext);
     const {
         register,
         reset,
@@ -46,7 +46,9 @@ const ToDoItem = ({ task, updateList }: any) => {
 
     const handleDuplicate = (e: any) => {
         e.preventDefault();
-        console.log("duplicating");
+        const { taskName, taskCategory } = task;
+        const duplicateTask: PartialTask = { taskName, taskCategory };
+        addTask(duplicateTask);
     };
 
     const handleDelete = (e: any) => {
@@ -79,7 +81,7 @@ const ToDoItem = ({ task, updateList }: any) => {
                 })}
             >
                 {categories.map((category, index) => {
-                    return <option key={index}>{category}</option>;
+                    return <option key={index}>{category.name}</option>;
                 })}
             </StyledSelect>
 
