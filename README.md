@@ -71,7 +71,34 @@ To Do:
 
 ## Change logs
 
-### 05/06/2023 - adding testing
+### 22/06/2023 - Implemented react-hook-form for all forms and improved categopry context
+
+-   made categorys and object with id
+-   made form construction and design consistent
+
+### 21/06/2023 - Implemented update and delete functionality for tasks
+
+-   Added a update "end point" in taskContext
+-   implemented the delete functionality from task context into the ToDoItem component
+
+### 20/06/2023 - Swithched from use Ref to react-hook-form and yup
+
+-   Began changing over forms to use react-hook form,
+-   added requirement for an updateTask function in the taskContext
+
+### 19/06/2023 - Added Task Item functionalities
+
+-   Added ToDo Items
+-   Added a Tasks Provider
+-   Added ToDo Form
+
+### 14/06/2023 - Further project Setup and begining of Form creation
+
+-   Added form context to store categories
+-   Added form to add categories to context
+-   Added some styling to form
+
+### 05/06/2023 - Project Setup
 
 -   Project created initial setup complete
 
