@@ -71,6 +71,11 @@ To Do:
 
 ## Change logs
 
+### 26/06/2023 - Implemented task selection and deselction feature
+
+-   made it possible using the TaskContext to select and deselect tasks
+-   this can be used later for things like mass duplication or delete
+
 ### 22/06/2023 - Implemented react-hook-form for all forms and improved categopry context
 
 -   made categorys and object with id

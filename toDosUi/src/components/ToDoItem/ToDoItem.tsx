@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyledForm } from "../../StyledComponents/Form/Form";
 import { StyledSelect } from "../../StyledComponents/StyledSelect/StyledSelect";
 import { CategoryContext } from "../../context/CategoryProvider";
@@ -12,11 +12,21 @@ import { FullInput } from "../FullInputs/FullInputs";
 const taskSchema = Yup.object().shape({
     taskName: Yup.string().required(),
     taskCategory: Yup.string().required(),
+    selected: Yup.string().optional(),
 });
 
 const ToDoItem = ({ task, updateList }: any) => {
+    const [curSelect, setCurSelect] = useState(false);
     const { categories } = useContext(CategoryContext);
-    const { tasks, updateTask, removeTask, addTask } = useContext(TaskContext);
+    const {
+        tasks,
+        updateTask,
+        removeTask,
+        addTask,
+        selectTask,
+        deselectTask,
+        selectedTasks,
+    } = useContext(TaskContext);
     const {
         register,
         reset,
@@ -30,18 +40,24 @@ const ToDoItem = ({ task, updateList }: any) => {
 
     const handleChange = (e: any) => {
         const curTask = task;
-        e.preventDefault;
+        e.preventDefault();
         if (e.target) {
-            if (e.target.name === "taskName") {
-                console.log(e.target.name, e.target.value);
-                curTask[e.target.name] = e.target.value;
-            } else {
-                console.log(e.target.name, e.target.value);
-                curTask[e.target.name] = e.target.value;
-            }
+            console.log(e.target.name, e.target.value);
+            curTask[e.target.name] = e.target.value;
         }
         updateTask(curTask);
         console.log(tasks);
+    };
+
+    const handleSelect = (e: any) => {
+        console.log(e.target.value);
+        if (curSelect === false) {
+            setCurSelect(true);
+            selectTask(task);
+        } else {
+            setCurSelect(false);
+            deselectTask(task.taskId);
+        }
     };
 
     const handleDuplicate = (e: any) => {
@@ -60,6 +76,10 @@ const ToDoItem = ({ task, updateList }: any) => {
     useEffect(() => {
         reset({ ...task });
     }, []);
+
+    useEffect(() => {
+        console.log("Selected", selectedTasks);
+    }, [selectedTasks]);
 
     return (
         <StyledForm>
@@ -84,6 +104,15 @@ const ToDoItem = ({ task, updateList }: any) => {
                     return <option key={index}>{category.name}</option>;
                 })}
             </StyledSelect>
+
+            <FullInput
+                type="checkbox"
+                error={errors.selected}
+                onClick={(e) => {
+                    handleSelect(e);
+                }}
+                {...register("selected")}
+            />
 
             <Button
                 $primary

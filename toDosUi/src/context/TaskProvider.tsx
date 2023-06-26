@@ -15,7 +15,10 @@ interface TaskContextProps {
     findById: (id: Number) => Task | undefined;
     removeTask: (id: Number) => Task | undefined;
     updateTask: (updatedTask: Task) => void;
+    selectTask: (selectedTask: Task) => void;
+    deselectTask: (id: Number) => void;
 
+    selectedTasks: Task[];
     tasks: Task[];
 }
 
@@ -28,11 +31,15 @@ export const TaskContext = createContext<TaskContextProps>({
         return { taskName: "", taskCategory: "", taskId: -1 };
     },
     updateTask: () => {},
+    selectTask: () => {},
+    deselectTask: () => {},
+    selectedTasks: [],
     tasks: [],
 });
 
 const TaskProvider: React.FC<any> = ({ children }: any) => {
     const [tasks, setTasks] = useState<Task[]>([]);
+    const [selectedTasks, setSelectedTasks] = useState<Task[]>([]);
 
     const addTask = useCallback(
         (newTask: PartialTask) => {
@@ -74,9 +81,38 @@ const TaskProvider: React.FC<any> = ({ children }: any) => {
         [tasks]
     );
 
+    const selectTask = useCallback(
+        (selectedTask: Task) => {
+            setSelectedTasks([...selectedTasks, selectedTask]);
+        },
+        [selectedTasks]
+    );
+
+    const deselectTask = useCallback(
+        (id: Number) => {
+            const curTask = findById(id);
+            if (curTask) {
+                const index = selectedTasks.indexOf(curTask);
+                console.log("deSelected");
+                selectedTasks.splice(index, 1)[0];
+                console.log(selectedTasks);
+            }
+        },
+        [selectedTasks]
+    );
+
     return (
         <TaskContext.Provider
-            value={{ findById, removeTask, addTask, tasks, updateTask }}
+            value={{
+                findById,
+                removeTask,
+                addTask,
+                tasks,
+                updateTask,
+                selectTask,
+                deselectTask,
+                selectedTasks,
+            }}
         >
             {children}
         </TaskContext.Provider>
